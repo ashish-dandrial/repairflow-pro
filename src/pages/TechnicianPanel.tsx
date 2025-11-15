@@ -16,6 +16,7 @@ import { dummyRepairs } from '@/data/dummyData';
 import { toast } from 'sonner';
 import { Wrench, ClipboardList, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
+import techPanelBg from '@/assets/technician-panel-bg.jpg';
 
 const TechnicianPanel = () => {
   const navigate = useNavigate();
@@ -58,47 +59,60 @@ const TechnicianPanel = () => {
   };
 
   return (
-    <div className="page-content min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 px-4 py-24">
-      <div className="container mx-auto space-y-8">
+    <div className="page-content min-h-screen relative overflow-hidden px-4 py-24">
+      <div 
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `url(${techPanelBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-primary/5 to-accent/10"></div>
+      
+      <div className="container mx-auto space-y-8 relative z-10">
         <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold">Technician Panel</h1>
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+            Technician Panel
+          </h1>
           <p className="text-xl text-muted-foreground">Welcome, {user?.name}</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all">
+          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all hover:scale-105 group bg-gradient-to-br from-card to-primary/5">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Assigned Tasks</p>
-                <p className="text-3xl font-bold">{stats.assigned}</p>
+                <p className="text-3xl font-bold animate-pulse">{stats.assigned}</p>
               </div>
-              <div className="p-3 bg-primary/10 rounded-xl">
-                <ClipboardList className="w-6 h-6 text-primary" />
+              <div className="p-3 bg-gradient-to-br from-primary to-accent rounded-xl group-hover:rotate-12 transition-transform shadow-glow">
+                <ClipboardList className="w-6 h-6 text-white" />
               </div>
             </div>
           </Card>
 
-          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all">
+          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all hover:scale-105 group bg-gradient-to-br from-card to-warning/5">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">In Progress</p>
-                <p className="text-3xl font-bold text-warning">{stats.inProgress}</p>
+                <p className="text-3xl font-bold text-warning animate-pulse">{stats.inProgress}</p>
               </div>
-              <div className="p-3 bg-warning/10 rounded-xl">
-                <Wrench className="w-6 h-6 text-warning" />
+              <div className="p-3 bg-gradient-to-br from-warning to-primary rounded-xl group-hover:rotate-12 transition-transform shadow-glow">
+                <Wrench className="w-6 h-6 text-white" />
               </div>
             </div>
           </Card>
 
-          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all">
+          <Card className="tech-card p-6 space-y-2 shadow-elegant hover:shadow-glow transition-all hover:scale-105 group bg-gradient-to-br from-card to-success/5">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Completed</p>
-                <p className="text-3xl font-bold text-success">{stats.completed}</p>
+                <p className="text-3xl font-bold text-success animate-pulse">{stats.completed}</p>
               </div>
-              <div className="p-3 bg-success/10 rounded-xl">
-                <CheckCircle className="w-6 h-6 text-success" />
+              <div className="p-3 bg-gradient-to-br from-success to-accent rounded-xl group-hover:rotate-12 transition-transform shadow-glow">
+                <CheckCircle className="w-6 h-6 text-white" />
               </div>
             </div>
           </Card>

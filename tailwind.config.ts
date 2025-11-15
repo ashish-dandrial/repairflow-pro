@@ -110,6 +110,10 @@ export default {
           "0%, 100%": { boxShadow: "0 0 20px hsl(var(--primary-glow) / 0.5)" },
           "50%": { boxShadow: "0 0 40px hsl(var(--primary-glow) / 0.8)" },
         },
+        "float": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.3s ease-out",
@@ -121,10 +125,12 @@ export default {
         "slide-in-left": "slide-in-left 0.4s ease-out",
         "bounce-in": "bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
         "glow": "glow 2s ease-in-out infinite",
+        "float": "float 3s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-hero": "var(--gradient-hero)",
         "gradient-card": "var(--gradient-card)",
+        "tech-pattern": "var(--tech-pattern)",
       },
       boxShadow: {
         "elegant": "var(--shadow-elegant)",

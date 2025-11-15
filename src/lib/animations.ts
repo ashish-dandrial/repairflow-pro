@@ -63,6 +63,11 @@ export const slideInRight = (selector: string, delay = 0) => {
       duration: 0.8,
       delay,
       ease: 'power3.out',
+      scrollTrigger: {
+        trigger: selector,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
     }
   );
 };
@@ -78,6 +83,11 @@ export const slideInLeft = (selector: string, delay = 0) => {
       duration: 0.8,
       delay,
       ease: 'power3.out',
+      scrollTrigger: {
+        trigger: selector,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
     }
   );
 };

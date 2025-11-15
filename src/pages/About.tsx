@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 import { Card } from '@/components/ui/card';
-import { Target, Users, Award, Heart } from 'lucide-react';
+import { Target, Users, Award, Heart, CheckCircle, Zap } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import techTeam1 from '@/assets/tech-team-1.jpg';
+import techTeam2 from '@/assets/tech-team-2.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +43,23 @@ const About = () => {
         scrollTrigger: {
           trigger: '.timeline-section',
           start: 'top 70%',
+        },
+      }
+    );
+
+    gsap.fromTo(
+      '.team-card',
+      { y: 50, opacity: 0, scale: 0.9 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'back.out(1.5)',
+        scrollTrigger: {
+          trigger: '.team-section',
+          start: 'top 75%',
         },
       }
     );
@@ -193,52 +212,49 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Meet Our Team</h2>
-            <p className="text-xl text-muted-foreground">The people behind QuickFix</p>
+      <section className="team-section py-20 px-4 bg-gradient-to-br from-muted/30 to-background">
+        <div className="container mx-auto">
+          <div className="text-center space-y-4 mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Meet Our Expert Team
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Skilled professionals dedicated to providing the best repair services
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="p-6 text-center space-y-4 hover:shadow-elegant transition-all">
-              <div className="w-24 h-24 mx-auto bg-gradient-hero rounded-full flex items-center justify-center text-4xl font-bold text-primary-foreground">
-                AK
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Amit Kumar</h3>
-                <p className="text-sm text-muted-foreground">Project Lead</p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                BCA student passionate about creating innovative solutions
-              </p>
-            </Card>
-
-            <Card className="p-6 text-center space-y-4 hover:shadow-elegant transition-all">
-              <div className="w-24 h-24 mx-auto bg-gradient-hero rounded-full flex items-center justify-center text-4xl font-bold text-primary-foreground">
-                PS
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Priya Sharma</h3>
-                <p className="text-sm text-muted-foreground">UI/UX Designer</p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Crafting beautiful and intuitive user experiences
-              </p>
-            </Card>
-
-            <Card className="p-6 text-center space-y-4 hover:shadow-elegant transition-all">
-              <div className="w-24 h-24 mx-auto bg-gradient-hero rounded-full flex items-center justify-center text-4xl font-bold text-primary-foreground">
-                RV
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold">Rahul Verma</h3>
-                <p className="text-sm text-muted-foreground">Developer</p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Building robust and scalable web applications
-              </p>
-            </Card>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              { name: 'Tech Mike', role: 'Senior Technician', specialty: 'Mobile & Laptop Expert', image: techTeam1, color: 'from-primary to-accent', repairs: '2,500+' },
+              { name: 'Tech Sarah', role: 'Electronics Specialist', specialty: 'AC & TV Professional', image: techTeam2, color: 'from-accent to-success', repairs: '3,000+' },
+              { name: 'Admin Team', role: 'Operations Manager', specialty: 'Service Coordination', image: null, color: 'from-warning to-primary', repairs: '10,000+' },
+            ].map((member, idx) => (
+              <Card key={idx} className="team-card overflow-hidden group hover:shadow-glow transition-all hover:scale-105 bg-gradient-to-br from-card to-background">
+                <div className="relative h-72 overflow-hidden">
+                  {member.image ? (
+                    <>
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-60"></div>
+                    </>
+                  ) : (
+                    <div className={`w-full h-full bg-gradient-to-br ${member.color} flex items-center justify-center relative`}>
+                      <Users className="w-32 h-32 text-white opacity-90" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent"></div>
+                    </div>
+                  )}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
+                    <p className="text-accent font-medium">{member.role}</p>
+                  </div>
+                </div>
+                <div className="p-6 space-y-3 text-center">
+                  <p className="text-sm text-muted-foreground">{member.specialty}</p>
+                  <div className="flex items-center justify-center gap-2 text-primary">
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="font-semibold">{member.repairs} Repairs Completed</span>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

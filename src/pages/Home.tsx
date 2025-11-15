@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import ServiceCard from '@/components/ServiceCard';
 import { services } from '@/data/dummyData';
-import { CheckCircle, Clock, Shield, Headphones, ArrowRight } from 'lucide-react';
+import { CheckCircle, Clock, Shield, Headphones, ArrowRight, Wrench, Award } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { isAuthenticated } from '@/lib/storage';
+import heroTechnicianImg from '@/assets/hero-technician.jpg';
+import servicesGraphicImg from '@/assets/services-graphic.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +36,15 @@ const Home = () => {
       { y: 0, opacity: 1, duration: 1, delay: 0.6, ease: 'power3.out' }
     );
 
+    // Hero image floating animation
+    gsap.to('.hero-image', {
+      y: -20,
+      duration: 2.5,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power1.inOut'
+    });
+
     // Service cards animation
     gsap.fromTo(
       '.service-card',
@@ -47,6 +58,23 @@ const Home = () => {
         scrollTrigger: {
           trigger: '.services-section',
           start: 'top 70%',
+        },
+      }
+    );
+
+    // Services graphic animation
+    gsap.fromTo(
+      '.services-graphic',
+      { x: -100, opacity: 0, rotation: -5 },
+      {
+        x: 0,
+        opacity: 1,
+        rotation: 0,
+        duration: 1.2,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.services-graphic',
+          start: 'top 75%',
         },
       }
     );
@@ -91,25 +119,35 @@ const Home = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-primary/5 to-accent/10">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-10"></div>
         <div className="container mx-auto px-4 py-20 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="hero-title text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent leading-tight">
-              Professional Repair Services at Your Doorstep
-            </h1>
-            <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Fast, reliable, and affordable repair solutions for all your devices and appliances
-            </p>
-            <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to={authenticated ? "/repair-request" : "/register"}>
-                <Button size="lg" className="bg-gradient-hero shadow-elegant hover:shadow-glow transition-all duration-300 text-lg px-8 py-6">
-                  Book a Repair
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <Link to="/status">
-                <Button size="lg" variant="outline" className="text-lg px-8 py-6">
-                  Track Repair Status
-                </Button>
-              </Link>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <h1 className="hero-title text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent leading-tight">
+                Professional Repair Services at Your Doorstep
+              </h1>
+              <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground">
+                Fast, reliable, and affordable repair solutions for all your devices and appliances
+              </p>
+              <div className="hero-buttons flex flex-col sm:flex-row gap-4">
+                <Link to={authenticated ? "/repair-request" : "/register"}>
+                  <Button size="lg" className="bg-gradient-hero shadow-elegant hover:shadow-glow transition-all duration-300 text-lg px-8 py-6 animate-glow">
+                    Book a Repair
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link to="/status">
+                  <Button size="lg" variant="outline" className="text-lg px-8 py-6 hover:scale-105 transition-transform">
+                    Track Repair Status
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="hero-image relative">
+              <div className="absolute inset-0 bg-gradient-hero opacity-20 blur-3xl rounded-full"></div>
+              <img 
+                src={heroTechnicianImg} 
+                alt="Professional technician repairing smartphone" 
+                className="relative rounded-2xl shadow-elegant hover:shadow-glow transition-shadow duration-500 w-full"
+              />
             </div>
           </div>
         </div>
