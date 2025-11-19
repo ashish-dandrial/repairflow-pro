@@ -17,100 +17,109 @@ const Home = () => {
   const authenticated = isAuthenticated();
 
   useEffect(() => {
-    // Hero animations
-    gsap.fromTo(
-      '.hero-title',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
-    );
+    // Hero animations with element checks
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+      gsap.fromTo(
+        '.hero-title',
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: 'power3.out' }
+      );
+    }
 
-    gsap.fromTo(
-      '.hero-subtitle',
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: 'power3.out' }
-    );
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) {
+      gsap.fromTo(
+        '.hero-subtitle',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: 'power3.out' }
+      );
+    }
 
-    gsap.fromTo(
-      '.hero-buttons',
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 0.6, ease: 'power3.out' }
-    );
+    const heroButtons = document.querySelector('.hero-buttons');
+    if (heroButtons) {
+      gsap.fromTo(
+        '.hero-buttons',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, delay: 0.6, ease: 'power3.out' }
+      );
+    }
 
     // Hero image floating animation
-    gsap.to('.hero-image', {
-      y: -20,
-      duration: 2.5,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut'
-    });
+    const heroImage = document.querySelector('.hero-image');
+    if (heroImage) {
+      gsap.to('.hero-image', {
+        y: -20,
+        duration: 2.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut'
+      });
+    }
 
     // Service cards animation
-    gsap.fromTo(
-      '.service-card',
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.services-section',
-          start: 'top 70%',
-        },
-      }
-    );
-
-    // Services graphic animation
-    gsap.fromTo(
-      '.services-graphic',
-      { x: -100, opacity: 0, rotation: -5 },
-      {
-        x: 0,
-        opacity: 1,
-        rotation: 0,
-        duration: 1.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.services-graphic',
-          start: 'top 75%',
-        },
-      }
-    );
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (serviceCards.length > 0) {
+      gsap.fromTo(
+        '.service-card',
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.services-section',
+            start: 'top 70%',
+          },
+        }
+      );
+    }
 
     // Features animation
-    gsap.fromTo(
-      '.feature-card',
-      { scale: 0.9, opacity: 0 },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 0.6,
-        stagger: 0.2,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: '.features-section',
-          start: 'top 75%',
-        },
-      }
-    );
+    const featureCards = document.querySelectorAll('.feature-card');
+    if (featureCards.length > 0) {
+      gsap.fromTo(
+        '.feature-card',
+        { scale: 0.9, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.2,
+          ease: 'back.out(1.7)',
+          scrollTrigger: {
+            trigger: '.features-section',
+            start: 'top 75%',
+          },
+        }
+      );
+    }
 
     // Stats animation
-    gsap.fromTo(
-      '.stat-card',
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: '.stats-section',
-          start: 'top 80%',
-        },
-      }
-    );
+    const statCards = document.querySelectorAll('.stat-card');
+    if (statCards.length > 0) {
+      gsap.fromTo(
+        '.stat-card',
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: '.stats-section',
+            start: 'top 80%',
+          },
+        }
+      );
+    }
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
